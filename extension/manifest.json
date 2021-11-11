@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "Komikato Discord Rich Presence",
+    "description": "Komikato Sites Presence",
+    "version": "2.10.2",
+    "background": {
+        "scripts": [
+            "jquery.js",
+            "background.js"
+        ],
+        "persistent": true
+    },
+    "browser_action": {},
+    "permissions": [
+        "https://*/",
+        "http://*/",
+        "tabs"
+    ],
+    "icons": {}
+}
