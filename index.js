@@ -17,54 +17,65 @@ client.on('ready', () => {
 
 app.post('/', function (req, res) {
     const request = req.body;
-    console.log(request);
-    if (request.action === 'set') {
-        if (!request.url.includes('komikato')) return;
-        const title = request.largeText.split('Episode')[0].trim();
-        const episode = request.largeText.split('Episode')[1].trim();
-        switch (true) {
-            case request.url.includes('otakudesu'):
-                client.setActivity({
-                    state: `Episode ${episode}`,
-                    details: title,
-                    largeImageKey: "750342786825584811_1_",
-                    largeImageText: request.details,
-                    smallImageKey: 'otakudesu',
-                    smallImageText: 'otakudesu',
-                    instance: true
-                });
-                break;
 
-            case request.url.includes('mangabat'):
-                client.setActivity({
-                    state: request.state,
-                    details: request.details,
-                    largeImageKey: "750342786825584811_1_",
-                    largeImageText: request.largeText || request.title,
-                    smallImageKey: 'mangabat',
-                    smallImageText: 'mangabat',
-                    instance: true
-                });
-                break;
-
-            case request.url.includes('komikindo'):
-                client.setActivity({
-                    state: request.state,
-                    details: request.details,
-                    startTimestamp: new Date(),
-                    largeImageKey: "750342786825584811_1_",
-                    largeImageText: request.largeText || request.title,
-                    smallImageKey: 'komikindo',
-                    smallImageText: 'komikindo',
-                    instance: true
-                });
-
-                break;
-            default:
-                client.clearActivity();
-                break;
-        }
+    switch (request.type) {
+        case 'otakudesu':
+            require('./router/otakudesu')(client, request);
+            break;
+        case 'komikindo':
+            require('./router/komikindo')(client, request);
+            break;
+        case 'mangabat':
+            require('./router/mangabat')(client, request);
+            break;
+        case 'komikato':
+            require('./router/komikato.js')(client, request);
+            break;
     }
+
+    // switch (true) {
+    //     case request.url.includes('otakudesu'):
+    //         client.setActivity({
+    //             state: `Episode ${episode}`,
+    //             details: title,
+    //             largeImageKey: "750342786825584811_1_",
+    //             largeImageText: request.details,
+    //             smallImageKey: 'otakudesu',
+    //             smallImageText: 'otakudesu',
+    //             instance: true
+    //         });
+    //         break;
+
+    //     case request.url.includes('mangabat'):
+    //         client.setActivity({
+    //             state: request.state,
+    //             details: request.details,
+    //             largeImageKey: "750342786825584811_1_",
+    //             largeImageText: request.largeText || request.title,
+    //             smallImageKey: 'mangabat',
+    //             smallImageText: 'mangabat',
+    //             instance: true
+    //         });
+    //         break;
+
+    //     case request.url.includes('komikindo'):
+    //         client.setActivity({
+    //             state: request.state,
+    //             details: request.details,
+    //             startTimestamp: new Date(),
+    //             largeImageKey: "750342786825584811_1_",
+    //             largeImageText: request.largeText || request.title,
+    //             smallImageKey: 'komikindo',
+    //             smallImageText: 'komikindo',
+    //             instance: true
+    //         });
+
+    //         break;
+    //     default:
+    //         client.clearActivity();
+    //         break;
+    // }
+
 });
 
 // Log in to RPC with client id

@@ -1,34 +1,32 @@
 function update(tab) {
     if (typeof tab !== 'object') return;
-    let data = null;
     const url = new URL(tab.url);
 
+    let data = {};
+    const path = url.pathname;
     switch (true) {
-        case url.origin.includes('//newtab'):
-            data = {
-                status: 'completed',
-                action: 'set',
-                details: url.hostname || tab.url,
-                smallText: tab.url,
-                largeText: tab.title,
-            }
+        case path.includes('otakudesu'):
+            data.type = 'otakudesu';
+            data.path = path;
+            data.title = tab.title;
             break;
 
-        case url.origin.includes('http'):
-            data = {
-                status: tab.status,
-                action: "set",
-                url: tab.url,
-                details: url.hostname || tab.url,
-                smallText: tab.url,
-                largeText: tab.title ? tab.title : null
-            }
+        case path.includes('komikindo'):
+            data.type = 'komikindo';
+            data.path = path;
+            data.search = url.searchParams.get('s');
+            data.title = tab.title;
+            break;
+
+        case path.includes('mangabat'):
+            data.type = 'mangabat';
+            data.path = path;
+            data.title = tab.title;
             break;
 
         default:
-            data = {
-                action: 'clear',
-            };
+            data.type = 'komikato';
+            data.tittle = tab.title;
             break;
     }
 
