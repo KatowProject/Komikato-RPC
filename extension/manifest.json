@@ -5,8 +5,8 @@
     "version": "2.10.2",
     "background": {
         "scripts": [
-            "jquery.js",
-            "background.js"
+            "background.js",
+            "jquery.js"
         ],
         "persistent": true
     },
@@ -16,5 +16,8 @@
         "http://*/",
         "tabs"
     ],
-    "icons": {}
+    "icons": {
+        "128": "icons/icon-128x128.png",
+        "512": "icons/icon-512x512.png"
+    }
 }

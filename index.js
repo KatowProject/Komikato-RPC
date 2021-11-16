@@ -31,51 +31,15 @@ app.post('/', function (req, res) {
         case 'komikato':
             require('./router/komikato.js')(client, request);
             break;
+        case 'delete':
+            client.clearActivity();
+            break;
     }
 
-    // switch (true) {
-    //     case request.url.includes('otakudesu'):
-    //         client.setActivity({
-    //             state: `Episode ${episode}`,
-    //             details: title,
-    //             largeImageKey: "750342786825584811_1_",
-    //             largeImageText: request.details,
-    //             smallImageKey: 'otakudesu',
-    //             smallImageText: 'otakudesu',
-    //             instance: true
-    //         });
-    //         break;
-
-    //     case request.url.includes('mangabat'):
-    //         client.setActivity({
-    //             state: request.state,
-    //             details: request.details,
-    //             largeImageKey: "750342786825584811_1_",
-    //             largeImageText: request.largeText || request.title,
-    //             smallImageKey: 'mangabat',
-    //             smallImageText: 'mangabat',
-    //             instance: true
-    //         });
-    //         break;
-
-    //     case request.url.includes('komikindo'):
-    //         client.setActivity({
-    //             state: request.state,
-    //             details: request.details,
-    //             startTimestamp: new Date(),
-    //             largeImageKey: "750342786825584811_1_",
-    //             largeImageText: request.largeText || request.title,
-    //             smallImageKey: 'komikindo',
-    //             smallImageText: 'komikindo',
-    //             instance: true
-    //         });
-
-    //         break;
-    //     default:
-    //         client.clearActivity();
-    //         break;
-    // }
-
+    res.status(200).json({
+        status: 'ok',
+        message: 'success'
+    });
 });
 
 // Log in to RPC with client id
